@@ -1,0 +1,43 @@
+{
+  "info": {
+    "_postman_id": "41bb3bb4-3d93-4b08-8fc5-76fe32f716d6",
+    "name": "AD01 - Microservicios multibodega",
+    "description": "Pruebas manuales de las APIs Catálogo, Inventario y Pedidos. Ejecutar primero los POST de datos relacionados.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "catalogo", "value": "https://localhost:7244" },
+    { "key": "inventario", "value": "https://localhost:44316" },
+    { "key": "pedidos", "value": "https://localhost:7290" },
+    { "key": "categoriaId", "value": "1" },
+    { "key": "marcaId", "value": "1" },
+    { "key": "productoId", "value": "1" },
+    { "key": "bodegaId", "value": "1" },
+    { "key": "clienteId", "value": "1" },
+    { "key": "pedidoId", "value": "1" }
+  ],
+  "item": [
+    { "name": "Catálogo", "item": [
+      { "name": "Listar categorías (200)", "request": { "method": "GET", "url": "{{catalogo}}/api/Categorias" } },
+      { "name": "Crear categoría (201)", "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\n  \"nombre\": \"Computación\",\n  \"descripcion\": \"Equipos y accesorios\"\n}" }, "url": "{{catalogo}}/api/Categorias" } },
+      { "name": "Listar marcas (200)", "request": { "method": "GET", "url": "{{catalogo}}/api/Marcas" } },
+      { "name": "Crear marca (201)", "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\n  \"nombre\": \"Marca Demo\",\n  \"paisOrigen\": \"Ecuador\"\n}" }, "url": "{{catalogo}}/api/Marcas" } },
+      { "name": "Listar productos (200)", "request": { "method": "GET", "url": "{{catalogo}}/api/Productos" } },
+      { "name": "Crear producto (201)", "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\n  \"idCategoria\": {{categoriaId}},\n  \"idMarca\": {{marcaId}},\n  \"nombre\": \"Laptop Demo\",\n  \"sku\": \"DEMO-001\",\n  \"precio\": 899.99,\n  \"estado\": \"Activo\"\n}" }, "url": "{{catalogo}}/api/Productos" } }
+    ]},
+    { "name": "Inventario", "item": [
+      { "name": "Listar bodegas (200)", "request": { "method": "GET", "url": "{{inventario}}/api/Bodegas" } },
+      { "name": "Crear bodega (201)", "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\n  \"nombre\": \"Matriz\",\n  \"ciudad\": \"Quito\",\n  \"direccion\": \"Av. Principal 123\"\n}" }, "url": "{{inventario}}/api/Bodegas" } },
+      { "name": "Listar existencias (200)", "request": { "method": "GET", "url": "{{inventario}}/api/Existencias" } },
+      { "name": "Registrar existencia (201)", "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\n  \"idProducto\": {{productoId}},\n  \"idBodega\": {{bodegaId}},\n  \"stock\": 50\n}" }, "url": "{{inventario}}/api/Existencias" } },
+      { "name": "Registrar entrada (201)", "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\n  \"idProducto\": {{productoId}},\n  \"idBodega\": {{bodegaId}},\n  \"tipo\": \"Entrada\",\n  \"cantidad\": 5\n}" }, "url": "{{inventario}}/api/Movimientos" } },
+      { "name": "Crear reserva (201)", "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\n  \"idProducto\": {{productoId}},\n  \"idBodega\": {{bodegaId}},\n  \"cantidad\": 2\n}" }, "url": "{{inventario}}/api/Reservas" } }
+    ]},
+    { "name": "Pedidos", "item": [
+      { "name": "Listar clientes (200)", "request": { "method": "GET", "url": "{{pedidos}}/api/Clientes" } },
+      { "name": "Crear cliente (201)", "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\n  \"nombre\": \"Cliente Demo\",\n  \"cedula\": \"0000000000\",\n  \"telefono\": \"0990000000\",\n  \"correo\": \"cliente@example.com\"\n}" }, "url": "{{pedidos}}/api/Clientes" } },
+      { "name": "Crear pedido (201)", "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\n  \"idCliente\": {{clienteId}},\n  \"estado\": \"Pendiente\",\n  \"detalles\": [{ \"idProducto\": {{productoId}}, \"cantidad\": 1, \"precioUnitario\": 899.99 }]\n}" }, "url": "{{pedidos}}/api/Pedidos" } },
+      { "name": "Listar pedidos (200)", "request": { "method": "GET", "url": "{{pedidos}}/api/Pedidos" } }
+    ]}
+  ]
+}

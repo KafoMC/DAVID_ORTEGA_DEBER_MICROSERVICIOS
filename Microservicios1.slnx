@@ -1,0 +1,7 @@
+<Solution>
+  <Folder Name="/Microservicios/">
+  <Project Path="Inventario2/Inventario.Api.csproj" />
+  <Project Path="Catalogo.Api/Catalogo.Api.csproj" />
+  <Project Path="Pedidos.Api/Pedidos.Api.csproj" />
+  </Folder>
+</Solution>

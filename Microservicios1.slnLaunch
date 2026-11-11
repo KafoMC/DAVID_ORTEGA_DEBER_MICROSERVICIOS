@@ -1,0 +1,19 @@
+[
+  {
+    "Name": "Microservicios",
+    "Projects": [
+      {
+        "Path": "Inventario2\\Inventario.Api.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "Catalogo.Api\\Catalogo.Api.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "Pedidos.Api\\Pedidos.Api.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]

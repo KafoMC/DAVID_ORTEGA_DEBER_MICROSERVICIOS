@@ -1,0 +1,26 @@
+# .NET
+**/bin/
+**/obj/
+**/build-check/
+.vs/
+tmp/
+*.user
+*.suo
+
+# Keep machine-specific settings and generated data out of GitHub
+**/appsettings.Development.json
+*.mdf
+*.ldf
+
+# Older, unreferenced examples are kept locally but are not part of this assignment
+/Libro2/
+/Inventario2/Libro/
+/Inventario2/Libro.zip
+/Inventario2/Inventario2.csproj
+/Inventario2/Inventario2.slnx
+/Inventario2/Inventario.slnx
+/Inventario2/*.http
+/Inventario2/WeatherForecast.cs
+/Inventario2/Models/
+/Inventario2/Dtos/
+/Pedidos.Api/*.http

@@ -13,7 +13,13 @@ tmp/
 *.ldf
 
 # Older, unreferenced examples are kept locally but are not part of this assignment
-/Libro2/
+/Libro2/*
+!/Libro2/Libro.Api/
+!/Libro2/Libro.Api/**
+/Libro2/Libro.Api/bin/
+/Libro2/Libro.Api/obj/
+/Libro2/Libro.Api/appsettings.Development.json
+/Libro2/Libro.Api/*.user
 /Inventario2/Libro/
 /Inventario2/Libro.zip
 /Inventario2/Inventario2.csproj

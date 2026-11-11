@@ -1,38 +1,31 @@
-# AD01 - Microservicios para comercio multibodega
+# AD01 - Microservicios de libros e inventario
 
-Solución .NET 10 con tres APIs independientes y bases de datos SQL Server separadas:
+Solución .NET 10 con dos APIs independientes y bases de datos SQL Server separadas:
 
-- `Catalogo.Api` -> `CatalogoDB`: categorías, marcas y productos.
-- `Inventario2/Inventario.Api.csproj` -> `InventarioDB`: bodegas, existencias por bodega, movimientos y reservas.
-- `Pedidos.Api` -> `PedidosDB`: clientes, pedidos y detalles.
+- `Libro2/Libro.Api/Libro.Api.csproj` -> `LibroDB`: consulta y administración de libros.
+- `Inventario2/Inventario.Api.csproj` -> `InventarioDB`: bodegas, existencias, movimientos y reservas.
 
-Cada servicio se puede ejecutar por separado. En Visual Studio, abre `Microservicios1.slnx` y usa el perfil de inicio `Microservicios` para iniciar los tres.
+Abre `Microservicios1.slnx` en Visual Studio y ejecuta el perfil `Microservicios` para iniciar ambas APIs. También puedes iniciarlas por separado desde sus proyectos.
 
 ## Requisitos
 
 - .NET SDK 10.
-- SQL Server local con autenticación de Windows.
-- Para los puertos de desarrollo configurados: Inventario HTTPS 44316, Catálogo HTTPS 7244 y Pedidos HTTPS 7290.
+- SQL Server local. Revisa las cadenas de conexión en los `appsettings.json` si tu instancia tiene otro nombre.
+- Libro HTTPS: `https://localhost:7244`; Inventario HTTPS: `https://localhost:7228`.
 
-Los connection strings están en los `appsettings.json`; cámbialos si tu instancia SQL Server tiene otro nombre. Ejecuta `database/AD01-Schema.sql` una vez en SQL Server Management Studio para crear las tres bases y sus tablas. Ejecutar el script no borra ni sobrescribe las tablas que ya existan. Si tienes una versión anterior de PedidosDB, revisa el bloque de actualización del script antes de usarlo.
+Ejecuta `database/AD01-Schema.sql` desde SQL Server Management Studio para crear `LibroDB` e `InventarioDB`. El script conserva las tablas y datos existentes.
 
 ## Swagger
 
-Abre `https://localhost:44316/swagger` para escoger en la lista Catálogo, Inventario o Pedidos. Los otros servicios también exponen Swagger en sus puertos.
+La página Swagger de Libro permite escoger entre `Libro.Api v1` e `Inventario.Api v1`. También puedes abrir directamente `/swagger` en el puerto de cada API.
 
-## Endpoints principales
+## Endpoints
 
-- Catálogo: `/api/Categorias`, `/api/Marcas`, `/api/Productos`.
-- Inventario: `/api/Bodegas`, `/api/Existencias`, `/api/Movimientos`, `/api/Reservas`.
-- Pedidos: `/api/Clientes`, `/api/Pedidos`.
-- Cada API tiene `/health`.
+- Libro: `/api/Libros` (GET, POST, PUT y DELETE) y `/health`.
+- Inventario: `/api/Bodegas`, `/api/Existencias`, `/api/Movimientos`, `/api/Reservas` y `/health`.
 
-Las claves de producto entre Catálogo, Inventario y Pedidos son referencias lógicas entre servicios; no se crean llaves foráneas entre bases independientes. Las llaves foráneas locales (Producto-Categoría/Marca, Existencia-Bodega, Pedido-Cliente y Detalle-Pedido) se configuran dentro de cada base.
+El campo `IdProducto` de Inventario sirve como referencia lógica al identificador del libro; las bases de datos siguen separadas y no tienen claves foráneas entre servicios.
 
-## Colección de Postman
+## Postman
 
-Importa `postman/AD01-Microservicios.postman_collection.json`. La colección trae variables de base URL y solicitudes CRUD para iniciar las comprobaciones. Ejecuta primero los POST de categoría, marca y producto, luego crea bodega y existencia antes de probar movimientos/reservas; crea un cliente antes del pedido.
-
-## Repositorio
-
-El `.gitignore` excluye `bin`, `obj`, configuración de desarrollo y los proyectos de ejemplo antiguos que no pertenecen a esta solución.
+Importa `postman/AD01-Microservicios.postman_collection.json`. Crea primero un libro y una bodega; usa el identificador del libro como `idProducto` al registrar su existencia.

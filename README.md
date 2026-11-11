@@ -11,13 +11,13 @@ Abre `Microservicios1.slnx` en Visual Studio y ejecuta el perfil `Microservicios
 
 - .NET SDK 10.
 - SQL Server local. Revisa las cadenas de conexión en los `appsettings.json` si tu instancia tiene otro nombre.
-- Libro HTTPS: `https://localhost:7244`; Inventario HTTPS: `https://localhost:7228`.
+- Libro HTTP: `http://localhost:5069`; Inventario HTTP: `http://localhost:5149`.
 
 Ejecuta `database/AD01-Schema.sql` desde SQL Server Management Studio para crear `LibroDB` e `InventarioDB`. El script conserva las tablas y datos existentes.
 
 ## Swagger
 
-La página Swagger de Libro permite escoger entre `Libro.Api v1` e `Inventario.Api v1`. También puedes abrir directamente `/swagger` en el puerto de cada API.
+Abre `http://localhost:5149/swagger` para escoger `Libro.Api v1` o `Inventario.Api v1`. También puedes abrir Libro en `http://localhost:5069/swagger`.
 
 ## Endpoints
 

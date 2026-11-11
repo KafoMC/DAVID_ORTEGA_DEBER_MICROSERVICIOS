@@ -18,7 +18,7 @@ builder.Services.AddSwaggerGen(options =>
 });
 builder.Services.AddCors(options => options.AddPolicy("LocalSwagger", policy => policy
     .WithOrigins(
-        "http://localhost:5149", "https://localhost:44316", "https://localhost:7228", "https://localhost:7244")
+        "http://localhost:5149", "http://localhost:5069")
     .AllowAnyHeader()
     .AllowAnyMethod()));
 
@@ -34,7 +34,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(options =>
     {
         options.SwaggerEndpoint("/swagger/v1/swagger.json", "Inventario.Api v1");
-        options.SwaggerEndpoint("https://localhost:7244/swagger/v1/swagger.json", "Libro.Api v1");
+        options.SwaggerEndpoint("http://localhost:5069/swagger/v1/swagger.json", "Libro.Api v1");
     });
 }
 

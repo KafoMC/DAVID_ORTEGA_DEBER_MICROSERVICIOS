@@ -6,8 +6,8 @@
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "variable": [
-    { "key": "libro", "value": "https://localhost:7244" },
-    { "key": "inventario", "value": "https://localhost:7228" },
+    { "key": "libro", "value": "http://localhost:5069" },
+    { "key": "inventario", "value": "http://localhost:5149" },
     { "key": "idLibro", "value": "1" },
     { "key": "idBodega", "value": "1" }
   ],

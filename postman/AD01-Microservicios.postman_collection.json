@@ -1,39 +1,24 @@
 {
-  "info": {
-    "_postman_id": "41bb3bb4-3d93-4b08-8fc5-76fe32f716d6",
-    "name": "AD01 - Libro e Inventario",
-    "description": "Solicitudes manuales para las APIs Libro e Inventario. Registra un libro y una bodega antes de crear su existencia.",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
-  },
-  "variable": [
-    { "key": "libro", "value": "http://localhost:5069" },
-    { "key": "inventario", "value": "http://localhost:5149" },
-    { "key": "idLibro", "value": "1" },
-    { "key": "idBodega", "value": "1" }
-  ],
-  "item": [
-    {
-      "name": "Libro",
-      "item": [
-        { "name": "Listar libros", "request": { "method": "GET", "url": "{{libro}}/api/Libros" } },
-        { "name": "Consultar libro por ID", "request": { "method": "GET", "url": "{{libro}}/api/Libros/{{idLibro}}" } },
-        { "name": "Crear libro", "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\n  \"titulo\": \"Cien años de soledad\",\n  \"autor\": \"Gabriel García Márquez\",\n  \"isbn\": \"9780307474728\",\n  \"precio\": 19.99,\n  \"estado\": true\n}" }, "url": "{{libro}}/api/Libros" } },
-        { "name": "Actualizar libro", "request": { "method": "PUT", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\n  \"idLibro\": {{idLibro}},\n  \"titulo\": \"Cien años de soledad\",\n  \"autor\": \"Gabriel García Márquez\",\n  \"isbn\": \"9780307474728\",\n  \"precio\": 20.99,\n  \"estado\": true\n}" }, "url": "{{libro}}/api/Libros/{{idLibro}}" } },
-        { "name": "Eliminar libro", "request": { "method": "DELETE", "url": "{{libro}}/api/Libros/{{idLibro}}" } }
-      ]
-    },
-    {
-      "name": "Inventario",
-      "item": [
-        { "name": "Listar bodegas", "request": { "method": "GET", "url": "{{inventario}}/api/Bodegas" } },
-        { "name": "Crear bodega", "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\n  \"nombre\": \"Matriz\",\n  \"ciudad\": \"Quito\",\n  \"direccion\": \"Av. Principal 123\"\n}" }, "url": "{{inventario}}/api/Bodegas" } },
-        { "name": "Listar existencias", "request": { "method": "GET", "url": "{{inventario}}/api/Existencias" } },
-        { "name": "Registrar existencia del libro", "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\n  \"idProducto\": {{idLibro}},\n  \"idBodega\": {{idBodega}},\n  \"stock\": 50\n}" }, "url": "{{inventario}}/api/Existencias" } },
-        { "name": "Listar movimientos", "request": { "method": "GET", "url": "{{inventario}}/api/Movimientos" } },
-        { "name": "Registrar entrada", "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\n  \"idProducto\": {{idLibro}},\n  \"idBodega\": {{idBodega}},\n  \"tipo\": \"Entrada\",\n  \"cantidad\": 5\n}" }, "url": "{{inventario}}/api/Movimientos" } },
-        { "name": "Listar reservas", "request": { "method": "GET", "url": "{{inventario}}/api/Reservas" } },
-        { "name": "Crear reserva", "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\n  \"idProducto\": {{idLibro}},\n  \"idBodega\": {{idBodega}},\n  \"cantidad\": 2\n}" }, "url": "{{inventario}}/api/Reservas" } }
-      ]
-    }
+  "info":{"_postman_id":"531cb49d-03c8-48b7-a730-57f4a5a3d960","name":"AD01 - Comercio (Pedidos, Catalogo e Inventario)","description":"Flujo de validación manual según el diagrama del deber. Crear primero categoría y marca, luego producto, bodega y existencia; al final crear un pedido.","schema":"https://schema.getpostman.com/json/collection/v2.1.0/collection.json"},
+  "variable":[{"key":"catalogo","value":"http://localhost:5069"},{"key":"pedidos","value":"http://localhost:5079"},{"key":"inventario","value":"http://localhost:5149"},{"key":"idCategoria","value":"1"},{"key":"idMarca","value":"1"},{"key":"idProducto","value":"1"},{"key":"idBodega","value":"1"}],
+  "item":[
+    {"name":"Catalogo.Api","item":[
+      {"name":"Listar categorias","request":{"method":"GET","url":"{{catalogo}}/api/Categorias"}},
+      {"name":"Crear categoria","request":{"method":"POST","header":[{"key":"Content-Type","value":"application/json"}],"body":{"mode":"raw","raw":"{\n  \"nombre\": \"Tecnologia\"\n}"},"url":"{{catalogo}}/api/Categorias"}},
+      {"name":"Listar marcas","request":{"method":"GET","url":"{{catalogo}}/api/Marcas"}},
+      {"name":"Crear marca","request":{"method":"POST","header":[{"key":"Content-Type","value":"application/json"}],"body":{"mode":"raw","raw":"{\n  \"nombre\": \"Marca demo\"\n}"},"url":"{{catalogo}}/api/Marcas"}},
+      {"name":"Listar productos","request":{"method":"GET","url":"{{catalogo}}/api/Productos"}},
+      {"name":"Crear producto","request":{"method":"POST","header":[{"key":"Content-Type","value":"application/json"}],"body":{"mode":"raw","raw":"{\n  \"nombre\": \"Producto demo\",\n  \"descripcion\": \"Producto de prueba del catalogo\",\n  \"precio\": 12.50,\n  \"idMarca\": {{idMarca}},\n  \"idCategoria\": {{idCategoria}}\n}"},"url":"{{catalogo}}/api/Productos"}}
+    ]},
+    {"name":"Inventario.Api","item":[
+      {"name":"Listar bodegas","request":{"method":"GET","url":"{{inventario}}/api/Bodegas"}},
+      {"name":"Crear bodega","request":{"method":"POST","header":[{"key":"Content-Type","value":"application/json"}],"body":{"mode":"raw","raw":"{\n  \"nombre\": \"Bodega principal\",\n  \"ciudad\": \"Quito\",\n  \"direccion\": \"Av. Principal 123\"\n}"},"url":"{{inventario}}/api/Bodegas"}},
+      {"name":"Listar existencias","request":{"method":"GET","url":"{{inventario}}/api/Existencias"}},
+      {"name":"Crear existencia","request":{"method":"POST","header":[{"key":"Content-Type","value":"application/json"}],"body":{"mode":"raw","raw":"{\n  \"idProducto\": {{idProducto}},\n  \"idBodega\": {{idBodega}},\n  \"stock\": 30\n}"},"url":"{{inventario}}/api/Existencias"}}
+    ]},
+    {"name":"Pedidos.Api","item":[
+      {"name":"Listar pedidos","request":{"method":"GET","url":"{{pedidos}}/api/Pedidos"}},
+      {"name":"Crear pedido (consulta Catalogo y reserva en Inventario)","request":{"method":"POST","header":[{"key":"Content-Type","value":"application/json"}],"body":{"mode":"raw","raw":"{\n  \"cliente\": \"Cliente demo\",\n  \"detalles\": [\n    {\"idProducto\": {{idProducto}}, \"idBodega\": {{idBodega}}, \"cantidad\": 2}\n  ]\n}"},"url":"{{pedidos}}/api/Pedidos"}}
+    ]}
   ]
 }

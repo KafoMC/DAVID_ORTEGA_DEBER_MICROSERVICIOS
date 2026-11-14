@@ -1,9 +1,13 @@
 [
   {
-    "Name": "Microservicios",
+    "Name": "AD01 - Comercio",
     "Projects": [
       {
-        "Path": "Libro2\\Libro.Api\\Libro.Api.csproj",
+        "Path": "Pedidos.Api\\Pedidos.Api.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "Catalogo.Api\\Catalogo.Api.csproj",
         "Action": "Start"
       },
       {

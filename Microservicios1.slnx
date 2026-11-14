@@ -1,6 +1,1 @@
-<Solution>
-  <Folder Name="/Microservicios/">
-    <Project Path="Libro2/Libro.Api/Libro.Api.csproj" />
-    <Project Path="Inventario2/Inventario.Api.csproj" />
-  </Folder>
-</Solution>
+<Solution><Folder Name="/Microservicios/"><Project Path="Pedidos.Api/Pedidos.Api.csproj" /><Project Path="Catalogo.Api/Catalogo.Api.csproj" /><Project Path="Inventario2/Inventario.Api.csproj" /></Folder></Solution>
